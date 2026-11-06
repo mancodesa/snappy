@@ -2399,8 +2399,9 @@ bool Uncompress(const char* compressed, size_t compressed_length,
     return false;
   }
   STLStringResizeUninitialized(uncompressed, ulength);
-  return RawUncompress(compressed, compressed_length,
-                       string_as_array(uncompressed));
+  const bool ok = RawUncompress(compressed, compressed_length,
+                                string_as_array(uncompressed));
+  return ok;
 }
 
 // A Writer that drops everything on the floor and just does validation
