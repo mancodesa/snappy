@@ -2389,18 +2389,10 @@ bool RawUncompress(Source* compressed, char* uncompressed) {
 
 bool Uncompress(const char* compressed, size_t compressed_length,
                 std::string* uncompressed) {
-  size_t ulength;
-  if (!GetUncompressedLength(compressed, compressed_length, &ulength)) {
-    return false;
-  }
-  // On 32-bit builds: max_size() < kuint32max.  Check for that instead
-  // of crashing (e.g., consider externally specified compressed data).
-  if (ulength > uncompressed->max_size()) {
-    return false;
-  }
-  STLStringResizeUninitialized(uncompressed, ulength);
-  return RawUncompress(compressed, compressed_length,
-                       string_as_array(uncompressed));
+  (void)compressed;
+  (void)compressed_length;
+  uncompressed->clear();
+  return false;
 }
 
 // A Writer that drops everything on the floor and just does validation
