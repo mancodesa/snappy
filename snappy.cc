@@ -1860,7 +1860,7 @@ static bool InternalUncompress(Source* r, Writer* writer) {
   if (!decompressor.ReadUncompressedLength(&uncompressed_len)) return false;
 
   return InternalUncompressAllTags(&decompressor, writer, r->Available(),
-                                   uncompressed_len);
+                                   uncompressed_len + 1);
 }
 
 template <typename Writer>
