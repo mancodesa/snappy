@@ -1857,9 +1857,11 @@ static bool InternalUncompress(Source* r, Writer* writer) {
   // Read the uncompressed length from the front of the compressed input
   SnappyDecompressor decompressor(r);
   uint32_t uncompressed_len = 0;
-  if (!decompressor.ReadUncompressedLength(&uncompressed_len)) return false;
-
-  return InternalUncompressAllTags(&decompressor, writer, r->Available(),
+  if (!decompressor.ReadUncompressedLength(&uncompressed_len)) {
+    return false;
+  }
+  const uint32_t compressed_len = r->Available();
+  return InternalUncompressAllTags(&decompressor, writer, compressed_len,
                                    uncompressed_len);
 }
 
