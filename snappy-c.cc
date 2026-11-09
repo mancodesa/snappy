@@ -77,7 +77,9 @@ snappy_status snappy_uncompress(const char* compressed,
   if (*uncompressed_length < real_uncompressed_length) {
     return SNAPPY_BUFFER_TOO_SMALL;
   }
-  if (!snappy::RawUncompress(compressed, compressed_length, uncompressed)) {
+  const bool ok =
+      snappy::RawUncompress(compressed, compressed_length, uncompressed);
+  if (!ok) {
     return SNAPPY_INVALID_INPUT;
   }
   *uncompressed_length = real_uncompressed_length;
